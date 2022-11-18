@@ -5,7 +5,9 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            git 'https://github.com/Marcellus-Morini/simple-java-maven-app'
+            steps {
+                git 'https://github.com/Marcellus-Morini/simple-java-maven-app'
+            }
         }
         stage('Build') {
             steps {
