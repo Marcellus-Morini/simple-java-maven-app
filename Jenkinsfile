@@ -29,7 +29,7 @@ pipeline {
                 nexusUrl: '172.31.15.167:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: 'http://18.132.106.29:8081/repository/simple-java-maven-app-release/', 
+                repository: 'simple-java-maven-app-release', 
                 version: '1.0-SNAPSHOT'
             }
         }
