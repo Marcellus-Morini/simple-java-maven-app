@@ -7,4 +7,14 @@ node {
 
         sh "${mvnHome}/bin/mvn -B -DskipTests clean package"
     }
+    stage('Test') {
+        steps {
+            sh "${mvnHome}/bin/mvn test"
+        }
+        post {
+            always {
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+    }
 }
