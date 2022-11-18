@@ -1,6 +1,11 @@
+def mvnHome
+
 pipeline {
+    agent {
+        label 'ubuntu'
+    }
     parameters {
-        def mvnHome = tool name: 'maven-3.6.3', type: 'maven'
+        mvnHome = tool name: 'maven-3.6.3', type: 'maven'
     }
     stages {
         stage('Checkout') {
