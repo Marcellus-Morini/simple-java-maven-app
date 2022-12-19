@@ -9,6 +9,20 @@ pipeline {
                 git 'https://github.com/Marcellus-Morini/simple-java-maven-app'
             }
         }
+        stage('SonarQube scan') {
+            steps {
+                withSonarQubeEnv('sq-server') {
+                    sh 'mvn clean sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://3.8.180.251:9000 -Dsonar.login=759e346c268e1e3113fa3dc42a1763f854c69885'
+                }
+            }            
+        }
+        stage('SonarQube quality gate') {
+            steps {
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }            
+        }        
         stage('Build') {
             steps {
                 sh script: 'mvn -B -DskipTests clean package'
@@ -23,13 +37,6 @@ pipeline {
                     junit 'target/surefire-reports/*.xml'
                 }
             }
-        }
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sq-server') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://3.8.180.251:9000 -Dsonar.login=759e346c268e1e3113fa3dc42a1763f854c69885'
-                }
-            }            
         }
         stage('Upload jar to Nexus') {
             steps {
