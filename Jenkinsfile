@@ -12,7 +12,7 @@ pipeline {
         stage('SonarQube scan') {
             steps {
                 withSonarQubeEnv('sq-server') {
-                    sh 'mvn clean sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://3.8.180.251:9000 -Dsonar.login=759e346c268e1e3113fa3dc42a1763f854c69885'
+                    sh 'mvn clean sonar:sonar -Dsonar.projectKey=com.mycompany.app:my-app -Dsonar.host.url=http://52.56.110.2:9000 -Dsonar.login=759e346c268e1e3113fa3dc42a1763f854c69885'
                 }
             }            
         }
